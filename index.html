@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SALAWE ALUMNI - KOBA</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui;background:#0a1020;color:#cbd5e1;min-height:100vh}
+.header{background:#0a1020;padding:35px 20px 20px}
+.header h1{color:white;font-size:28px;font-weight:900;letter-spacing:.5px}
+.header p{margin-top:10px;font-size:15px;opacity:.9}
+.tabs{display:flex;gap:10px;padding:20px 15px 0}
+.tab{flex:1;padding:14px;text-align:center;background:#1c2333;border-radius:12px;cursor:pointer;font-weight:700;color:#94a3b8}
+.tab.active{background:#111a2e;color:white;border:1px solid #2a364d}
+.container{padding:0 15px 20px}
+.card{background:#1c2333;padding:22px;border-radius:16px;margin-top:15px}
+.card h2{color:white;margin-bottom:15px}
+label{font-size:14px;margin-top:12px;display:block}
+input{width:100%;padding:13px;margin-top:6px;border-radius:10px;border:1px solid #2a364d;background:#111a2e;color:white}
+input::placeholder{color:#64748b}
+.btn{width:100%;padding:15px;border:none;border-radius:12px;font-weight:800;font-size:16px;cursor:pointer;margin-top:20px}
+.btn-green{background:#16a34a;color:white}
+.btn-dark{background:#2a364d;color:#cbd5e1}
+.hidden{display:none}
+.badge{background:#16a34a;color:white;padding:3px 8px;border-radius:10px;font-size:12px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th,td{padding:10px;border-bottom:1px solid #2a364d;text-align:left}
+th{color:#fbbf24}
+.small{font-size:12px;color:#64748b;margin-top:10px;text-align:center}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>SALAWE ALUMNI - KOBA</h1>
+<p>Karibu Mfumo wa Wanachama - Mwenyekiti: Emmanuel M. Shinje<br>Wanakikundi <span id="topIdadi">40</span> | Waliojisajili: <span id="topWalio" class="badge">0</span></p>
+</div>
+
+<div class="tabs">
+<div class="tab active" id="t1" onclick="showTab('jisajili')">JISAJILI</div>
+<div class="tab" id="t2" onclick="showTab('ingia')">INGIA</div>
+<div class="tab" id="t3" onclick="showTab('admin')">ADMIN</div>
+</div>
+
+<div class="container">
+
+<!-- JISAJILI -->
+<div class="card" id="box-jisajili">
+<h2>📝 Jisajili</h2>
+<label>Jina Kamili</label>
+<input id="r_jina" placeholder="Emmanuel Mashaury Shinje">
+<label>Namba ya Simu</label>
+<input id="r_simu" placeholder="07XXXXXXXX">
+<label>Weka Nywila Yako</label>
+<input id="r_nywila" type="password" placeholder="****">
+<label>Rudia Nywila</label>
+<input id="r_nywila2" type="password" placeholder="****">
+<button class="btn btn-green" onclick="jisajili()">JISAJILI</button>
+<p class="small">Ukijisajili idadi itaongezeka 40,41,42... na admin atapata ujumbe</p>
+</div>
+
+<!-- INGIA -->
+<div class="card hidden" id="box-ingia">
+<h2>🔐 Ingia</h2>
+<label>Jina / Simu</label>
+<input id="l_jina" placeholder="Jina au Simu">
+<label>Nywila</label>
+<input id="l_nywila" type="password" placeholder="Nywila yako">
+<button class="btn btn-green" onclick="ingia()">INGIA</button>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="card hidden" id="box-admin">
+<h2>🔑 Admin Login</h2>
+<label>Username</label>
+<input id="a_jina" value="admin">
+<label>Password</label>
+<input id="a_nywila" type="password" value="1234">
+<button class="btn btn-green" onclick="adminIngia()">INGIA ADMIN</button>
+<p class="small">Username: admin | Password: 1234</p>
+</div>
+
+<!-- DASHBOARD MWANACHAMA -->
+<div class="card hidden" id="dash">
+<h2>Habari, <span id="d_jina" style="color:white"></span> 👋</h2>
+<p style="margin:12px 0">Salio: <b style="color:white">TZS <span id="d_salio">1000</span></b></p>
+<p style="margin:8px 0">Jumla Uliyochanga: <b style="color:white">TZS <span id="d_jumla">1000</span></b></p>
+<p style="margin:8px 0">Wiki: <b style="color:white"><span id="d_wiki">1</span>/52</b> | Kundi Sasa: <b style="color:white"><span id="d_idadi">40</span></b></p>
+<div style="background:#111a2e;border:1px dashed #fbbf24;padding:12px;border-radius:10px;text-align:center;margin-top:15px">
+<b style="color:#fbbf24">M-PESA: 255 756 457 470</b><br><span style="font-size:12px">Emmanuel Mashaury Shinje</span>
+</div>
+<button class="btn btn-green" onclick="changa()">+ Changa TZS 1,000 Leo</button>
+<button class="btn btn-dark" onclick="toka()">Toka</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="card hidden" id="admin-dash">
+<h2>📊 Admin Panel</h2>
+<p>Jumla ya Wanachama: <b style="color:white" id="a_idadi">0</b> | Idadi na 40 wa mwanzo: <b style="color:white" id="a_idadi40">40</b></p>
+<p>Michango Yote: <b style="color:#22c55e">TZS <span id="a_jumla">0</span></b></p>
+<table>
+<thead><tr><th>#</th><th>Jina</th><th>Simu</th><th>Jumla</th><th>Wiki</th></tr></thead>
+<tbody id="admin-table"></tbody>
+</table>
+<button class="btn btn-dark" onclick="toka()">Toka Admin</button>
+<button class="btn btn-dark" style="background:#7f1d1d;color:white" onclick="if(confirm('Uhakika unataka kufuta watu wote na uanze upya?')){localStorage.removeItem('koba_users');location.reload()}">Anza Upya - Futa Wote</button>
+</div>
+
+</div>
+
+<script>
+const ADMIN_USER="admin"; const ADMIN_PASS="1234"; const ADMIN_PHONE="255756457470";
+function showTab(t){
+document.getElementById('box-jisajili').classList.add('hidden');
+document.getElementById('box-ingia').classList.add('hidden');
+document.getElementById('box-admin').classList.add('hidden');
+document.getElementById('t1').classList.remove('active');document.getElementById('t2').classList.remove('active');document.getElementById('t3').classList.remove('active');
+if(t=='jisajili'){document.getElementById('box-jisajili').classList.remove('hidden');document.getElementById('t1').classList.add('active')}
+else if(t=='ingia'){document.getElementById('box-ingia').classList.remove('hidden');document.getElementById('t2').classList.add('active')}
+else{document.getElementById('box-admin').classList.remove('hidden');document.getElementById('t3').classList.add('active')}
+}
+function updateIdadi(){
+let users=JSON.parse(localStorage.getItem('koba_users')||'[]');
+let total=40+users.length;
+document.getElementById('topIdadi').innerText=total;
+document.getElementById('topWalio').innerText=users.length;
+if(document.getElementById('d_idadi'))document.getElementById('d_idadi').innerText=total;
+if(document.getElementById('a_idadi40'))document.getElementById('a_idadi40').innerText=total;
+}
+function jisajili(){
+let j=document.getElementById('r_jina').value.trim();let s=document.getElementById('r_simu').value.trim();let n=document.getElementById('r_nywila').value;let n2=document.getElementById('r_nywila2').value;
+if(!j||!s||!n){alert('Jaza taarifa zote');return}if(n!=n2){alert('Nywila hazifanani');return}
+let users=JSON.parse(localStorage.getItem('koba_users')||'[]');
+if(users.find(u=>u.simu==s)){alert('Namba imeshasajiliwa, ingia');showTab('ingia');return}
+let nu={jina:j,simu:s,nywila:n,jumla:1000,wiki:1};
+users.push(nu);localStorage.setItem('koba_users',JSON.stringify(users));localStorage.setItem('koba_current',JSON.stringify(nu));
+let msg=`*MTU MPYA AMEJISAJILI - KOBA*%0AJina: ${j}%0ASimu: ${s}%0AIdadi Sasa: ${40+users.length}%0A*Anza na TZS 1000*`;
+window.open(`https://wa.me/${ADMIN_PHONE}?text=${msg}`,'_blank');
+showDash(nu);
+}
+function ingia(){
+let j=document.getElementById('l_jina').value.trim();let n=document.getElementById('l_nywila').value;
+let users=JSON.parse(localStorage.getItem('koba_users')||'[]');let u=users.find(x=>(x.jina.toLowerCase()==j.toLowerCase()||x.simu==j)&&x.nywila==n);
+if(!u){alert('Jina au Nywila si sahihi');return}localStorage.setItem('koba_current',JSON.stringify(u));showDash(u);
+}
+function adminIngia(){
+let j=document.getElementById('a_jina').value.trim();let n=document.getElementById('a_nywila').value;
+if(j!==ADMIN_USER||n!==ADMIN_PASS){alert('Si sahihi - tumia admin / 1234');return}
+document.getElementById('box-jisajili').classList.add('hidden');document.getElementById('box-ingia').classList.add('hidden');document.getElementById('box-admin').classList.add('hidden');
+document.querySelector('.tabs').classList.add('hidden');
+showAdmin();
+}
+function showDash(u){
+document.querySelector('.tabs').classList.add('hidden');
+document.getElementById('box-jisajili').classList.add('hidden');document.getElementById('box-ingia').classList.add('hidden');document.getElementById('box-admin').classList.add('hidden');
+document.getElementById('d_jina').innerText=u.jina;document.getElementById('d_jumla').innerText=u.jumla;document.getElementById('d_salio').innerText=u.jumla;document.getElementById('d_wiki').innerText=u.wiki;
+updateIdadi();document.getElementById('dash').classList.remove('hidden');
+}
+function showAdmin(){
+let users=JSON.parse(localStorage.getItem('koba_users')||'[]');let total=0;users.forEach(u=>total+=u.jumla);
+document.getElementById('a_idadi').innerText=users.length;document.getElementById('a_jumla').innerText=total;
+let tbody=document.getElementById('admin-table');tbody.innerHTML='';
+if(users.length==0){tbody.innerHTML='<tr><td colspan=5>Hakuna aliyejisajili bado - Anza upya umefanikiwa</td></tr>'}
+else{users.forEach((u,i)=>{tbody.innerHTML+=`<tr><td>${i+1}</td><td>${u.jina}</td><td>${u.simu}</td><td>${u.jumla}</td><td>${u.wiki}</td></tr>`})}
+document.getElementById('admin-dash').classList.remove('hidden');updateIdadi();
+}
+function toka(){localStorage.removeItem('koba_current');location.reload();}
+function changa(){
+let cur=JSON.parse(localStorage.getItem('koba_current'));cur.jumla+=1000;cur.wiki+=1;
+let users=JSON.parse(localStorage.getItem('koba_users'));let idx=users.findIndex(u=>u.simu==cur.simu);users[idx]=cur;
+localStorage.setItem('koba_users',JSON.stringify(users));localStorage.setItem('koba_current',JSON.stringify(cur));
+let msg=`*MCHANGO MPYA - KOBA*%0AJina: ${cur.jina}%0ASimu: ${cur.simu}%0AAmelipa: 1000%0AJumla Yake: ${cur.jumla}%0AWiki: ${cur.wiki}`;
+window.open(`https://wa.me/${ADMIN_PHONE}?text=${msg}`,'_blank');
+showDash(cur);
+}
+updateIdadi();
+let cur=localStorage.getItem('koba_current');if(cur){showDash(JSON.parse(cur))}
+</script>
+</body>
+                                                               </html>
